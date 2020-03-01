@@ -2,6 +2,25 @@
 	$subject_id = $subject['id'];
 	$section_id = $_SESSION['user']['section'];
 	$teacher_id = $_SESSION['user']['id'];
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+
+	try {
+		$conn = new PDO("mysql:host=$servername;dbname=ogs", $username, $password);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+		$stmt = $conn->prepare("SELECT * from students");
+		$stmt->execute();
+
+		$students = $stmt->fetchAll();
+
+		}
+	catch(PDOException $e)
+		{
+		echo "Connection failed: " . $e->getMessage();
+		}
 	
 ?>
 <div class="card border-secondary mt-3">
@@ -10,6 +29,22 @@
   </div>
   <div class="card-body row">
     <div class="col-md-12 table-responsive">
+	<div class="row">
+	            <div class="col-md-6 m-auto">
+	                <div class="input-group mb-3">
+	                <select name="" id="student_list" class="form-control">
+						<?php foreach($students as $student){?>
+							<option value="<?php echo $student['id']?>"><?php echo $student['first_name']." ".$student['middle_name']." ".$student['last_name']?></option>
+						<?php }?>
+					</select>
+	                    <div class="input-group-append">
+	                        <button type="submit" class="btn btn-outline-primary" onclick="AddGrade()">
+	                            <li class="fas fa-plus"></li>
+	                        </button>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
       <table id="add-grade-table" class="table-bordered table-sm">
         <thead>
           <tr>
@@ -26,6 +61,7 @@
         <tbody id="grade-tbody">
         </tbody>
       </table>
+      <button class="btn btn-primary" onClick="generateGrades()">Generate All Grades</button>
       <button onClick="submitGrades()" class="btn btn-primary btn-warning mt-1">Submit Grades</button>
       <hr>
      <div class="col-md-12">
@@ -35,18 +71,7 @@
 	        <input type="hidden" name="subject_id" id="subject_id" value="<?php echo $subject['id']; ?>" />
 	        <input type="hidden" name="section_id" id="section_id" value="<?php echo $section_id; ?>" />
 	        <input type="hidden" name="teacher_id" id="teacher_id" value="<?php echo $teacher_id; ?>" />
-	        <div class="row">
-	            <div class="col-md-6 m-auto">
-	                <div class="input-group mb-3">
-	                <input id="q" type="text" placeholder="Search student's last name" name="query" aria-label="Search teacher's last name" aria-describedby="basic-addon2" class="form-control" /> 
-	                    <div class="input-group-append">
-	                        <button type="submit" class="btn btn-outline-primary">
-	                            <li class="fas fa-search"></li>
-	                        </button>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
+	        
 	    </form>
 	    <hr>
 	   <div class="col-md-6 m-auto">
@@ -59,6 +84,43 @@
   </div>
 </div><!-- end .card.border-secondary.mt-3 -->
 <script type="text/javascript">
+
+	function AddGrade() {
+		var input = document.getElementById("student_list").value;
+		$.ajax({
+			url: 'views/teacher/studentList.php',
+			method: 'GET',
+			dataType: "json",
+			data: {
+				id: input
+			},
+			success:function(data) {
+				$('#grade-tbody').append('<tr><td>'+data.result.id_number+'<input type=hidden name="studentId[]" value="'+data.result.id+'"></td><td>'+data.result.first_name+' '+data.result.middle_name+' '+data.result.last_name+' '+'</td><td>3</td><td>4</td><td><input type="text" name="first[]"></td><td><input type="text" id="second[]" name="second[]"</td><td><input type="text" name="semGrade[]" disabled></td><td><input type="text" name="remarks[]" disabled></td></tr>');
+			}
+		});
+	}
+
+	function generateGrades() {
+		var first = document.getElementsByName('first[]');
+		var second = document.getElementsByName('second[]');
+		var semGrade = document.getElementsByName('semGrade[]');
+		var remarks = document.getElementsByName('remarks[]');
+		
+			for (var i = 0; i<first.length; i++){
+
+				if(first[i].value!= '' && second[i].value != ''){
+						var inp = (parseInt(first[i].value)+parseInt(second[i].value))/2;
+
+						if (inp <75) {
+							remarks[i].value = "FAILED";
+						}
+						else{
+							remarks[i].value = "PASSED";
+						}
+						semGrade[i].value = inp;
+				}
+			}
+	}
 	function submitQuery(event) {
 		event.preventDefault();
 		var q = $('#q').val();
@@ -165,60 +227,113 @@
 	}
 
 	function submitGrades(){
-		if (confirm("Are you sure?")){
+		if(confirm("Save All Data")){
+			var ins = document.getElementsByName('first[]');
+			var inp = document.getElementsByName('second[]');
+			var semGrade = document.getElementsByName('semGrade[]');
+			var remarks = document.getElementsByName('remarks[]');
+			var studentId = document.getElementsByName('studentId[]');
+			var subject_id = document.getElementById('subject_id').value;
+			var section_id = document.getElementById('section_id').value;
+			var teacher_id = document.getElementById('teacher_id').value;
+			var firstGrade = [];
+			var secondGrade = [];
+			var semeGrade = [];
+			var gradeRemarks = [];
+			var student = [];
 
-			var grades = window.__grade_table_storage.grade;
+			if (remarks[0].value == ''){
+				alert('Please Generate All Grades');
+			} else {
 
-			if (grades.length == 0){
-				alert("There are no student in the subject.");
-				return;
+			for (var i = 0; i<ins.length; i++){
+				var first = ins[i];
+				firstGrade.push(first.value);
+				var second = inp[i];
+				secondGrade.push(second.value);
+				var third = semGrade[i];
+				semeGrade.push(third.value);
+				var four = remarks[i];
+				gradeRemarks.push(four.value);
+				var five = studentId[i];
+				student.push(five.value);
 			}
 
-			// fetch data
-			grades.map( grade => {
-				var first_quarter =$(`#first_quarter-${grade.id}`).val();
-				var second_quarter = $(`#second_quarter-${grade.id}`).val();
-
-				var g1 = parseFloat(first_quarter), g2 = parseFloat(second_quarter);
-
-
-				var semestral_grade =( (g1 + g2) / 2 ).toFixed(0);
-
-				var remark;
-
-				if (!isNaN(g1) && !isNaN(g2) && !isNaN(semestral_grade)){
-					if (semestral_grade > 1 && semestral_grade < 75) remark = "FAILED";
-					else if (semestral_grade <= 100 && semestral_grade > 74) remark = "PASSED";
-					else remark = null;
-				} else {
-					first_quarter = null;
-					second_quarter = null;
-					semestral_grade = null;
-					remark = null;
-				}
-
-				//console.log("GRADE : ", {first_quarter,second_quarter,semestral_grade,remark});
-
-				grade.first_quarter = first_quarter;
-				grade.second_quarter = second_quarter;
-				grade.semestral_grade = semestral_grade;
-				grade.remark = remark;
-
-				return grade;
-			});
-			console.log("GRADES", grades);
-
 			$.ajax({
-				url: `<?php echo url("sys/api.php?a=save-student-grade"); ?>`,
+				url: 'views/teacher/saveGrade.php',
 				method: 'POST',
-				data: { data: JSON.stringify(grades) },
-				success: (data) => {
-					console.log(data);
-					window.renderData();
+				dataType: "json",
+				data: {
+					firstGrade: firstGrade,
+					secondGrade: secondGrade,
+					semeGrade: semeGrade,
+					gradeRemarks: gradeRemarks,
+					student: student,
+					subject_id: subject_id,
+					section_id: section_id,
+					teacher_id: teacher_id
+				},
+				success:function(data){
+
 				}
 
 			});
 		}
+	}
+		// if (confirm("Are you sure?")){
+
+		// 	var grades = window.__grade_table_storage.grade;
+
+		// 	if (grades.length == 0){
+		// 		alert("There are no student in the subject.");
+		// 		return;
+		// 	}
+
+		// 	// fetch data
+		// 	grades.map( grade => {
+		// 		var first_quarter =$(`#first_quarter-${grade.id}`).val();
+		// 		var second_quarter = $(`#second_quarter-${grade.id}`).val();
+
+		// 		var g1 = parseFloat(first_quarter), g2 = parseFloat(second_quarter);
+
+
+		// 		var semestral_grade =( (g1 + g2) / 2 ).toFixed(0);
+
+		// 		var remark;
+
+		// 		if (!isNaN(g1) && !isNaN(g2) && !isNaN(semestral_grade)){
+		// 			if (semestral_grade > 1 && semestral_grade < 75) remark = "FAILED";
+		// 			else if (semestral_grade <= 100 && semestral_grade > 74) remark = "PASSED";
+		// 			else remark = null;
+		// 		} else {
+		// 			first_quarter = null;
+		// 			second_quarter = null;
+		// 			semestral_grade = null;
+		// 			remark = null;
+		// 		}
+
+		// 		//console.log("GRADE : ", {first_quarter,second_quarter,semestral_grade,remark});
+
+		// 		grade.first_quarter = first_quarter;
+		// 		grade.second_quarter = second_quarter;
+		// 		grade.semestral_grade = semestral_grade;
+		// 		grade.remark = remark;
+
+		// 		return grade;
+		// 	});
+		// 	console.log("GRADES", grades);
+
+		// 	$.ajax({
+		// 		url: `<?php echo url("sys/api.php?a=save-student-grade"); ?>`,
+		// 		method: 'POST',
+		// 		data: { data: JSON.stringify(grades) },
+		// 		success: (data) => {
+		// 			console.log(data);
+		// 			window.renderData();
+		// 		}
+
+		// 	});
+		// }
 	}
 
 	window.onload = (e) => {
