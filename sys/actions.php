@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		    $student_id = $student['id'];
 		    $teacher_id = $teacher['id'];
 		    $subject_id = $subject['subject_id'];
-		    $rs = DB::exec("INSERT INTO `grades` VALUES (NULL'', '$teacher_id', '$subject_id', '$section_id', '$student_id')");
+		    $rs = DB::exec("INSERT INTO `grades` (`id`, `teacher_id`, `subject_id`, `section_id`, `student_id`) VALUES (NULL, '$teacher_id', '$subject_id', '$section_id', '$student_id')");
 		}
 		if ($rs) {
 			$_SESSION['success'] = 'Student was added successfully';

@@ -3,10 +3,10 @@
 </head>
 <body class="bg">
 
-  <div class="container">
+  <div class="container" style="width: 100%; height: auto;">
 
     <!-- Outer Row -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" style="height: auto; width: 100%; position: absolute; left: 0; top: 25%;">
 
       <div class="col-md-6 col-lg-4">
 

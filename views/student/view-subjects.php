@@ -4,7 +4,7 @@
   </div>
   <div class="card-body row">
     <div class="col-md-12 table-responsive">
-      <form class="col-md-6" style="float: right;" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+      <form class="col-md-6" style="float: right;">
         <div class="form-group row">
           <div class="col-10" style="float: right; margin-bottom: 5px;">
             <select class="form-control col-6" placeholder="Semester" name="semester" style="display: inline-block; width: auto;">
@@ -24,7 +24,7 @@
             </select>
           </div>
           <div class="col-2" style="float: right; margin-bottom: 5px; text-align: center;">
-            <button class="btn btn-sm btn-primary" type="submit" name="filter-subject-student">Filter</button>
+            <button class="btn btn-sm btn-primary" type="submit">Filter</button>
           </div>
         </div>
       </form>
