@@ -11,7 +11,7 @@
               <?php 
                 foreach ($subjects as $subject){ 
               ?>
-              <option value="<?php echo $subject['school_year']; ?>"><?php echo $semester['school_year']; ?></option>
+              <option value="<?php echo $subject['school_year']; ?>"><?php echo $subject['school_year']; ?></option>
               <?php } ?>
             </select>
             <select class="form-control col-6" placeholder="Semester" name="semester" style="display: inline-block; width: auto;">
