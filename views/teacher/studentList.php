@@ -15,11 +15,14 @@
     
     //get user data from the database
     $query = $db->query("SELECT * FROM students WHERE id = {$_GET['id']}");
+    $query2 = $db->query("SELECT * From subjects Where id = {$_GET['subjectId']}");
     
     if($query->num_rows > 0){
         $userData = $query->fetch_assoc();
+        $subjectData = $query2->fetch_assoc();
         $data['status'] = 'ok';
         $data['result'] = $userData;
+        $data['data'] = $subjectData;
     }else{
         $data['status'] = 'err';
         $data['result'] = '';
