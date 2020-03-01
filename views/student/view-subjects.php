@@ -6,14 +6,14 @@
     <div class="col-md-12 table-responsive">
         <div class="form-group row">
           <div class="col-10" style="float: right; margin-bottom: 5px;">
-            <select class="form-control col-6" placeholder="School Year" id="school_year" style="display: inline-block; width: auto;">
+            <select class="form-control col-6" placeholder="School Year" id="school_year" style="display: inline-block; width: 49%;">
               <?php 
                 foreach ($school_year as $school_year){ 
               ?>
               <option value="<?php echo $school_year['name']; ?>"><?php echo $school_year['name']; ?></option>
               <?php } ?>
             </select>
-            <select class="form-control col-6" placeholder="Semester" id="semester" style="display: inline-block; width: auto;">
+            <select class="form-control col-6" placeholder="Semester" id="semester" style="display: inline-block; width: 49%;">
               <?php 
                 $semesters = ["First Semester", "Second Semester"];
                 foreach ($semesters as $semester){ 
@@ -22,8 +22,8 @@
               <?php } ?>
             </select>
           </div>
-          <div class="col-2" style="float: right; margin-bottom: 5px; text-align: center;">
-            <button class="btn btn-sm btn-primary" type="submit" onclick="SeeGrade()">Filter</button>
+          <div class="col-2" style="float: right; margin: 5px 0; text-align: center;">
+            <button class="btn btn-sm btn-primary" type="submit" onclick="SeeGrade()" style="width: 100%;">Filter</button>
           </div>
         </div>
       <table class="table-bordered table-sm col-md-12">

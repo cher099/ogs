@@ -179,12 +179,11 @@
                                               School Year
                                           </div>
                                           <div class="col-8">
-                                            <select class="form-control" name="school_year" required > 
+                                           <select class="form-control" name="school_year" required > 
                                                 <?php  
-                                                    $year = ["2016-2017","2017-2018","2018-2019","2019-2020","2020-2021","2021-2022"];
-                                                    foreach ($year as $key => $value) {
+                                                    foreach ($school_years as $school_year) {
                                                     ?>
-                                                        <option <?php echo $level === $subject['school_year']? 'selected': ''; ?> value="<?php echo $value; ?>"><?php echo $value; ?></option>
+                                                        <option value="<?php echo $school_year['name']; ?>"><?php echo $school_year['name']; ?></option>
                                                     <?php
                                                     }
                                                 ?>
