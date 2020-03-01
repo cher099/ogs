@@ -99,7 +99,7 @@ switch ($a) {
 		$subject_id = $_GET['subject_id'];
 
 		// json(['teacher_id' => $teacher_id, 'section_id' => $section_id, 'subject_id' => $subject_id]);
-		$data = DB::select("select grades.*, students.first_name, students.last_name, students.middle_name from students left join grades on students.id=grades.student_id WHERE grades.teacher_id=$teacher_id and grades.section_id=$section_id and grades.subject_id=$subject_id");
+		$data = DB::select("SELECT grades.*, students.first_name, students.last_name, students.middle_name FROM students LEFT JOIN grades on students.id=grades.student_id WHERE grades.teacher_id='$teacher_id' AND grades.section_id='$section_id' AND grades.subject_id='$subject_id'");
 
 		json($data);
 		

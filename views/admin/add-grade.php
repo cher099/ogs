@@ -5,9 +5,9 @@
   <div class="card-body row">
     <div class="col-md-12 row">
       <div class="col-md-1">
-       <p class="lead mt-1">Section :</p>
+       <p class="lead mt-1">Subject :</p>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <select id="subject_id" class="form-control">
           <?php foreach ($subjects as $subject): ?>
              <option value="<?php echo $subject['id']; ?>"><?php echo" {$subject['name']} - {$subject['track']}"; ?></option>
@@ -17,7 +17,7 @@
       <div class="col-md-1">
        <p class="lead mt-1">Teacher :</p>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
         <select id="teacher_id" class="form-control">
           <?php foreach ($teachers as $teacher): ?>
              <option value="<?php echo $teacher['id']; ?>"><?php echo" {$teacher['last_name']}, {$teacher['first_name']} {$teacher['middle_name']}"; ?></option>
@@ -34,7 +34,7 @@
           <?php endforeach ?>
         </select>
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
        <button id="search-btn" class="btn btn-outline-primary ">Search</button>
       </div>
     </div><!-- end of search fields -->
