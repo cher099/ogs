@@ -14,12 +14,12 @@
           <div class="card-header text-center transparent" style="background-color: rgba(255, 255, 255, 0.8);">
           	<p style="margin-bottom: 0;"><b>GTCD K-12 Online Grading System</b></p>
           </div>
-          <div class="card-body p-0 transparent" style="background-image: url(assets/imgs/logo.png);height: 502px;background-size: contain;">
+          <div class="card-body p-0 transparent">
             <!-- Nested Row within Card Body -->
             <div class="row">
               <div class="col-lg-12">
               	<?php include 'views/inc/errorMessage.php'; ?>
-                <div class="px-4 py-3" style="padding: 9em 1.5em 9em 1.5em !important;">
+                <div class="px-4 py-3">
                   <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="user">
                     <div class="form-group">
                       <input type="text" name="username" class="form-control" placeholder="Username" required/>

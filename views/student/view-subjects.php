@@ -4,10 +4,17 @@
   </div>
   <div class="card-body row">
     <div class="col-md-12 table-responsive">
-      <form class="col-md-4" style="float: right;" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+      <form class="col-md-6" style="float: right;" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
         <div class="form-group row">
           <div class="col-10" style="float: right; margin-bottom: 5px;">
-            <select class="form-control" placeholder="Semester" name="semester">
+            <select class="form-control col-6" placeholder="Semester" name="semester" style="display: inline-block; width: auto;">
+              <?php 
+                foreach ($subjects as $subject){ 
+              ?>
+              <option value="<?php echo $subject['school_year']; ?>"><?php echo $semester['school_year']; ?></option>
+              <?php } ?>
+            </select>
+            <select class="form-control col-6" placeholder="Semester" name="semester" style="display: inline-block; width: auto;">
               <?php 
                 $semesters = ["First Semester", "Second Semester"];
                 foreach ($semesters as $semester){ 
