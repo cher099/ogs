@@ -12,9 +12,12 @@
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 		$stmt = $conn->prepare("SELECT * from students");
+		$getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id Where g.subject_id = $subject_id");
 		$stmt->execute();
+		$getGrade->execute();
 
 		$students = $stmt->fetchAll();
+		$studentGrades = $getGrade->fetchAll();
 
 		}
 	catch(PDOException $e)
@@ -60,6 +63,22 @@
         </thead>
         <tbody id="grade-tbody">
         </tbody>
+        <tbody>
+        	<div>
+        		<?php foreach($studentGrades as $stud){?>
+        			<tr>
+        			  <td><?php echo $stud['id_number']?></td>
+        			  <td><?php echo $stud['first_name'].' '.$stud['middle_name'].' '.$stud['last_name']?></td>
+        			  <td><?php echo $stud['semester']?></td>
+        			  <td><?php echo $stud['school_year']?></td>
+        			  <td><?php echo $stud['first_quarter']?></td>
+        			  <td><?php echo $stud['second_quarter']?></td>
+        			  <td><?php echo $stud['semestral_grade']?></td>
+        			  <td><?php echo $stud['remark']?></td>
+        			</tr>
+        		<?php }?>
+        	</div>
+        </tbody>
       </table>
       <button class="btn btn-primary" onClick="generateGrades()">Generate All Grades</button>
       <button onClick="submitGrades()" class="btn btn-primary btn-warning mt-1">Submit Grades</button>
@@ -87,15 +106,17 @@
 
 	function AddGrade() {
 		var input = document.getElementById("student_list").value;
+		var subjectIdQuery = document.getElementById('subject_id').value;
 		$.ajax({
 			url: 'views/teacher/studentList.php',
 			method: 'GET',
 			dataType: "json",
 			data: {
-				id: input
+				id: input,
+				subjectId: subjectIdQuery
 			},
 			success:function(data) {
-				$('#grade-tbody').append('<tr><td>'+data.result.id_number+'<input type=hidden name="studentId[]" value="'+data.result.id+'"></td><td>'+data.result.first_name+' '+data.result.middle_name+' '+data.result.last_name+' '+'</td><td>3</td><td>4</td><td><input type="text" name="first[]"></td><td><input type="text" id="second[]" name="second[]"</td><td><input type="text" name="semGrade[]" disabled></td><td><input type="text" name="remarks[]" disabled></td></tr>');
+				$('#grade-tbody').append('<tr><td>'+data.result.id_number+'<input type=hidden name="studentId[]" value="'+data.result.id+'"></td><td>'+data.result.first_name+' '+data.result.middle_name+' '+data.result.last_name+' '+'</td><td>'+data.data.semester+'</td><td>'+data.data.school_year+'</td><td><input type="text" name="first[]"></td><td><input type="text" id="second[]" name="second[]"</td><td><input type="text" name="semGrade[]" disabled></td><td><input type="text" name="remarks[]" disabled></td></tr>');
 			}
 		});
 	}
