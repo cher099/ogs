@@ -4,17 +4,16 @@
   </div>
   <div class="card-body row">
     <div class="col-md-12 table-responsive">
-      <form class="col-md-6" style="float: right;">
         <div class="form-group row">
           <div class="col-10" style="float: right; margin-bottom: 5px;">
-            <select class="form-control col-6" placeholder="Semester" name="semester" style="display: inline-block; width: auto;">
+            <select class="form-control col-6" placeholder="School Year" id="school_year" style="display: inline-block; width: auto;">
               <?php 
-                foreach ($subjects as $subject){ 
+                foreach ($school_year as $school_year){ 
               ?>
-              <option value="<?php echo $subject['school_year']; ?>"><?php echo $subject['school_year']; ?></option>
+              <option value="<?php echo $school_year['name']; ?>"><?php echo $school_year['name']; ?></option>
               <?php } ?>
             </select>
-            <select class="form-control col-6" placeholder="Semester" name="semester" style="display: inline-block; width: auto;">
+            <select class="form-control col-6" placeholder="Semester" id="semester" style="display: inline-block; width: auto;">
               <?php 
                 $semesters = ["First Semester", "Second Semester"];
                 foreach ($semesters as $semester){ 
@@ -24,10 +23,9 @@
             </select>
           </div>
           <div class="col-2" style="float: right; margin-bottom: 5px; text-align: center;">
-            <button class="btn btn-sm btn-primary" type="submit">Filter</button>
+            <button class="btn btn-sm btn-primary" type="submit" onclick="SeeGrade()">Filter</button>
           </div>
         </div>
-      </form>
       <table class="table-bordered table-sm col-md-12">
         <thead class="text-center">
           <tr>
@@ -42,7 +40,9 @@
             <th>School Year</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="grade-tbody">
+        </tbody>
+        <tbody id="grade-body-hide">
           <?php foreach ($subjects as $subjects): ?>
             <tr>
               <td><?php echo $subjects['id']; ?></td>
@@ -62,3 +62,37 @@
     <!-- end add section-->
   </div>
 </div><!-- end .card.border-secondary.mt-3 -->
+
+<script type="text/javascript">
+    function SeeGrade() {
+    var syear = document.getElementById("school_year").value;
+    var sem = document.getElementById("semester").value;
+    $.ajax({
+      url: 'views/student/studentGradeList.php',
+      method: 'GET',
+      dataType: "json",
+      data: {
+        semester: sem,
+        schoolYear: syear
+      },
+      success:function(data) {
+        console.log(semester);
+        console.log(school_year);
+        console.log(data);
+        $('#grade-tbody').html(
+            '<tr>'+ 
+            '<td>'+data.result.id+'</td>'+
+            '<td>'+data.result.name+'</td>'+
+            '<td>'+data.result.semester+'</td>'+
+            '<td>'+data.result.first_quarter+'</td>'+
+            '<td>'+data.result.second_quarter+'</td>'+
+            '<td>'+data.result.semestral_grade+'</td>'+
+            '<td>'+data.result.remark+'</td>'+
+            '<td>'+data.result.track+'</td>'+
+            '<td>'+data.result.school_year+'</td>'+
+            '</tr>');
+        $('#grade-body-hide').css( 'display', 'none');
+      }
+    });
+  }
+</script>

@@ -98,6 +98,7 @@
 			$action = isset($_GET['a']) ? $_GET['a'] : '';
 			switch ($action) {
 				default:
+					$school_year = DB::select("SELECT * FROM school_year");
 					$subjects = DB::select("SELECT grades.*, subjects.name, subjects.track, subjects.school_year, subjects.semester FROM grades LEFT JOIN subjects ON grades.subject_id=subjects.id WHERE grades.student_id={$_SESSION['user']['id']}");
 					include 'views/student/view-subjects.php';
 					break;

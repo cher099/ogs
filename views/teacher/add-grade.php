@@ -105,6 +105,7 @@
 <script type="text/javascript">
 
 	function AddGrade() {
+
 		var input = document.getElementById("student_list").value;
 		var subjectIdQuery = document.getElementById('subject_id').value;
 		$.ajax({
@@ -116,7 +117,8 @@
 				subjectId: subjectIdQuery
 			},
 			success:function(data) {
-				$('#grade-tbody').append('<tr><td>'+data.result.id_number+'<input type=hidden name="studentId[]" value="'+data.result.id+'"></td><td>'+data.result.first_name+' '+data.result.middle_name+' '+data.result.last_name+' '+'</td><td>'+data.data.semester+'</td><td>'+data.data.school_year+'</td><td><input type="text" name="first[]"></td><td><input type="text" id="second[]" name="second[]"</td><td><input type="text" name="semGrade[]" disabled></td><td><input type="text" name="remarks[]" disabled></td></tr>');
+				console.log(data);
+				$('#grade-tbody').append('<tr><td>'+data.result.id_number+'<input type=hidden name="studentId[]" value="'+data.result.id+'"></td><td>'+data.result.first_name+' '+data.result.middle_name+' '+data.result.last_name+' '+'</td><td>'+data.data.semester+'</td><td>'+data.data.school_year+'</td><td><input type="text" name="first[]" class="form-control"></td><td><input type="text" id="second[]" name="second[]" class="form-control"></td><td><input type="text" name="semGrade[]" class="form-control" disabled></td><td><input type="text" name="remarks[]" class="form-control" disabled></td></tr>');
 			}
 		});
 	}
