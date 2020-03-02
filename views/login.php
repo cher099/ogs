@@ -8,7 +8,7 @@
     <!-- Outer Row -->
     <div class="row justify-content-center" style="height: auto; width: 100%; position: absolute; left: 0; top: 25%;">
 
-      <div class="col-md-6 col-lg-4">
+      <div class="col-md-4 col-lg-4">
 
         <div class="card o-hidden border-0 shadow-lg my-5 " style="background-color: rgba(255, 255, 255, 0.8);">
           <div class="card-header text-center transparent" style="background-color: rgba(255, 255, 255, 0.8);">
