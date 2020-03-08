@@ -46,7 +46,7 @@
                     <div class="form-group row mb-2 ">
                         <div class="col-md-2 text-right mt-1"><small>Middle Name</small></div>
                         <div class="col-md-3">
-                            <input class="form-control" placeholder="Middle Name" type="text" name="middle_name" required />
+                            <input class="form-control" placeholder="Middle Name" type="text" name="middle_name" />
                         </div>
                         <div class="col-md-2 text-right mt-1"><small>Section</small></div>
                         <div class="col-md-3">

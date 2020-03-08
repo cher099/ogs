@@ -64,9 +64,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$sex = $_POST['sex'];
 		$username = $_POST['username'];
 		$password = $_POST['password'];
-		$rs = DB::exec("INSERT INTO `students` VALUES (NULL, '$id_number', '$first_name', '$last_name', '$middle_name', '$address', '$sex', '$school_year', '$grade_level', '$section', '$username', '$password', '$birth_date', '".now()."')");
+		$rs = DB::exec("INSERT INTO `students` (`id`, `id_number`, `first_name`, `last_name`, `middle_name`, `address`, `sex`, `school_year`, `grade_level`, `section`, `username`, `password`, `birth_date`, `date_enrolled`) VALUES (NULL, '$id_number', '$first_name', '$last_name', '$middle_name', '$address', '$sex', '$school_year', '$grade_level', '$section', '$username', '$password', '$birth_date', '".now()."')");
 
-		$teacher = DB::select("SELECT teachers.* FROM teachers WHERE teachers.section='$section'")[0];    
+		/* ADD STUDENT DATA TO GRADES
 		$student = DB::select("SELECT students.* FROM students WHERE students.id_number='$id_number'")[0];
 		$subjects = DB::select("SELECT subject_id from subject_teachers where teacher_id={$teacher['id']}");
 		foreach ($subjects as $subject) {
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		    $teacher_id = $teacher['id'];
 		    $subject_id = $subject['subject_id'];
 		    $rs = DB::exec("INSERT INTO `grades` (`id`, `teacher_id`, `subject_id`, `section_id`, `student_id`) VALUES (NULL, '$teacher_id', '$subject_id', '$section_id', '$student_id')");
-		}
+		} */
 		if ($rs) {
 			$_SESSION['success'] = 'Student was added successfully';
 			to("index.php?p=principals&a=view-student");

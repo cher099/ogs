@@ -180,7 +180,9 @@ function checkGradesContent(){
       $.ajax({
         url: `<?php echo url("sys/api.php?a=save-student-grade"); ?>`,
         method: 'POST',
-        data: { data: JSON.stringify(grades) },
+        data: { 
+          data: JSON.stringify(grades) 
+        },
         success: (data) => {
           console.log(data);
           window.renderData();
