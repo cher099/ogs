@@ -1,3 +1,68 @@
+<?php
+
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+
+	try {
+		$conn = new PDO("mysql:host=$servername;dbname=ogs", $username, $password);
+		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $stmt = $conn->prepare("SELECT * from students");
+    if(isset($_GET['getTeacherId'])==false){
+		$getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id");
+    }
+    if(isset($_GET['getSubjectId'])) {
+    $subjectId = $_GET['getSubjectId'];
+		$getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.subject_id =".$subjectId."");
+    }
+    if(isset($_GET['getTeacherId'])){
+      $teacher_id = $_GET['getTeacherId'];
+		$getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.teacher_id = ".$teacher_id."");
+    }
+    if(isset($_GET['getSectionId'])) {
+      $section_id = $_GET['getSectionId'];
+		  $getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.section_id = ".$section_id."");
+    }
+    if(isset($_GET['getTeacherId']) && isset($_GET['getSubjectId'])) {
+      $teacher_id = $_GET['getTeacherId'];
+      $subject_id = $_GET['getSubjectId'];
+		  $getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.teacher_id = ".$teacher_id." and g.subject_id = ".$subject_id."");
+     }
+     if(isset($_GET['getTeacherId']) && isset($_GET['getSectionId'])) {
+      $teacher_id = $_GET['getTeacherId'];
+      $section_id = $_GET['getSectionId'];
+		  $getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.teacher_id = ".$teacher_id." and g.section_id = ".$section_id."");
+     }
+     if(isset($_GET['getSubjectId']) && isset($_GET['getSectionId'])){
+      $subject_id = $_GET['getSubjectId'];
+      $section_id = $_GET['getSectionId'];
+		  $getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.subject_id = ".$subject_id." and g.section_id = ".$section_id."");
+     }
+     if(isset($_GET['getSubjectId']) && isset($_GET['getSectionId']) && isset($_GET['getTeacherId'])){
+      $subject_id = $_GET['getSubjectId'];
+      $section_id = $_GET['getSectionId'];
+      $teacher_id = $_GET['getTeacherId'];
+		  $getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.subject_id = ".$subject_id." and g.section_id = ".$section_id." and g.teacher_id=".$teacher_id."");
+     }
+    $getGradeLevel = $conn->prepare("Select * from levels");
+
+    $getGradeLevel->execute();
+		$stmt->execute();
+		$getGrade->execute();
+
+		$students = $stmt->fetchAll();
+    $studentGrades = $getGrade->fetchAll();
+    $fetchGradeLevel = $getGradeLevel->fetchAll();
+
+
+		}
+	catch(PDOException $e)
+		{
+		echo "Connection failed: " . $e->getMessage();
+		}
+	
+?>
 <div class="card border-secondary mt-3">
   <div class="card-header">
   	<p class="lead m-0">Edit Grade</p>
@@ -7,8 +72,9 @@
       <div class="col-md-1">
        <p class="lead mt-1">Subject :</p>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
         <select id="subject_id" class="form-control">
+          <option value="0"></option>
           <?php foreach ($subjects as $subject): ?>
              <option value="<?php echo $subject['id']; ?>"><?php echo" {$subject['name']} - {$subject['track']}"; ?></option>
           <?php endforeach ?>
@@ -19,6 +85,7 @@
       </div>
       <div class="col-md-3">
         <select id="teacher_id" class="form-control">
+        <option value="0"></option>
           <?php foreach ($teachers as $teacher): ?>
              <option value="<?php echo $teacher['id']; ?>"><?php echo" {$teacher['last_name']}, {$teacher['first_name']} {$teacher['middle_name']}"; ?></option>
           <?php endforeach ?>
@@ -29,11 +96,23 @@
       </div>
       <div class="col-md-2">
         <select id="section_id" class="form-control">
+        <option value="0"></option>
           <?php foreach ($sections as $section): ?>
              <option value="<?php echo $section['id']; ?>"><?php echo" {$section['name']}"; ?></option>
           <?php endforeach ?>
         </select>
       </div>
+      <!-- <div class="col-md-1">
+       <p class="lead mt-1">Grade Level :</p>
+      </div>
+      <div class="col-md-2">
+        <select id="level_id" class="form-control">
+        <option value="0"></option>
+          <?php foreach ($fetchGradeLevel as $gradeLevel){ ?>
+             <option value="<?php echo $gradeLevel['id']; ?>"><?php echo $gradeLevel['name']?></option>
+          <?php } ?>
+        </select>
+      </div> -->
       <div class="col-md-1">
        <button id="search-btn" class="btn btn-outline-primary ">Search</button>
       </div>
@@ -52,6 +131,21 @@
           </tr>
         </thead>
         <tbody id="grade-tbody"></tbody>
+        <tbody>
+        	<div>
+        		<?php foreach($studentGrades as $stud){?>
+        			<tr>
+        			  <td><?php echo $stud['id_number']?></td>
+        			  <td><?php echo $stud['first_name'].' '.$stud['middle_name'].' '.$stud['last_name']?></td>
+        			  <td><?php echo $stud['semester']?></td>
+        			  <td><?php echo $stud['first_quarter']?></td>
+        			  <td><?php echo $stud['second_quarter']?></td>
+        			  <td><?php echo $stud['remark']?></td>
+                <td><a href="#">EDIT</a> | <a href="#">DELETE</a></td>
+        			</tr>
+        		<?php }?>
+        	</div>
+        </tbody>
       </table>
       <div id="submit-panel">
         <button onClick="submitGrades()" class="btn btn-primary btn-warning mt-1">Update Grades</button>
@@ -113,7 +207,34 @@
     teacher_id = $('#teacher_id').val();
     subject_id = $('#subject_id').val();
     section_id = $('#section_id').val();
+    // level_id = $('#level_id').val();
+    var currentLocation = window.location;
+    if(teacher_id != 0 ) {
+      window.location.href="index.php?p=principals&a=add-grade&getTeacherId="+teacher_id;
+    }
+    if(subject_id != 0) {
+      window.location.href="index.php?p=principals&a=add-grade&getSubjectId="+subject_id;
 
+    }
+    if(section_id != 0) {
+      window.location.href="index.php?p=principals&a=add-grade&getSectionId="+section_id;
+    }
+    if(teacher_id != 0 && subject_id != 0) {
+      window.location.href="index.php?p=principals&a=add-grade&getTeacherId="+teacher_id+"&getSubjectId="+subject_id;
+    }
+    if(teacher_id != 0 && section_id != 0) {
+      window.location.href="index.php?p=principals&a=add-grade&getTeacherId="+teacher_id+"&getSectionId="+section_id;
+    }
+    if(subject_id != 0 && section_id != 0) {
+      window.location.href="index.php?p=principals&a=add-grade&getSubjectId="+subject_id+"&getSectionId="+section_id;
+    }
+    if(subject_id != 0 && section_id != 0 && teacher_id != 0) {
+      window.location.href="index.php?p=principals&a=add-grade&getSubjectId="+subject_id+"&getSectionId="+section_id+"&getTeacherId="+teacher_id;
+    }
+    if(teacher_id == 0 && subject_id == 0 && section_id == 0){
+      window.location.href="index.php?p=principals&a=add-grade";
+
+    }
 
     window.renderData();
   }
