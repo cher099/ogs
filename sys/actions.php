@@ -142,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 		$semester =  $_POST['semester'];
 		$track =  $_POST['track'];
 		$school_year =  $_POST['school_year'];
-
+		$teacher_id = $_POST['getTeacherId'];
 		$rs = DB::exec("INSERT INTO `subjects` VALUES (NULL, '$level_id', '$name', '$semester', '$track', '$school_year')");
 		if ($rs) {
 			$_SESSION['success'] = 'Subject was added successfully';
