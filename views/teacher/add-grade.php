@@ -102,7 +102,13 @@
     <!-- end add section-->
   </div>
 </div><!-- end .card.border-secondary.mt-3 -->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
+
+$("#student_list").chosen();
 
 	function AddGrade() {
 
