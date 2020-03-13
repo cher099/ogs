@@ -1,6 +1,7 @@
 	<?php echo css('sb-admin-2'); ?>
 	<?php echo css('font-awesome/all'); ?>
 	<?php echo css('datatables.min'); ?>
+	<?php echo css('select2.min');?>
 	<style>
 		<?php if (!isset($_GET['a'])) { ?>
 			#content {
@@ -133,4 +134,9 @@
 	<?php echo js('jquery.dataTables.min'); ?>
 	<?php echo js('datatables.min'); ?>
 	<?php echo js('dataTables.bootstrap4.min'); ?>
+	<?php echo js('select.min');?>
+
+	<script>
+		$('#student_list').select2();
+	</script>
 </body>

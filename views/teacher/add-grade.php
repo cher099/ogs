@@ -35,13 +35,13 @@
 	<div class="row">
 	            <div class="col-md-6 m-auto">
 	                <div class="input-group mb-3">
-	                <select name="" id="student_list" class="form-control">
+	                <select name="" id="student_list" class="form-control"
 						<?php foreach($students as $student){?>
 							<option value="<?php echo $student['id']?>"><?php echo $student['first_name']." ".$student['middle_name']." ".$student['last_name']?></option>
 						<?php }?>
 					</select>
 	                    <div class="input-group-append">
-	                        <button type="submit" class="btn btn-outline-primary" onclick="AddGrade()">
+	                        <button type="submit" class="btn btn-outline-primary" onclick="AddGrade()" style="height:80%;">
 	                            <li class="fas fa-plus"></li>
 	                        </button>
 	                    </div>
@@ -103,13 +103,7 @@
   </div>
 </div><!-- end .card.border-secondary.mt-3 -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
-
-$("#student_list").chosen();
-
 	function AddGrade() {
 
 		var input = document.getElementById("student_list").value;
