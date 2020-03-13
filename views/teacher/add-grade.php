@@ -3,6 +3,20 @@
 	$section_id = $_SESSION['user']['section'];
 	$teacher_id = $_SESSION['user']['id'];
 
+	$firtsGrade = "";
+	$secondGrade = "";
+
+	$semester = $_GET['semester'];
+	if($semester == "First Semester") {
+		$firstGrade = "First Quarter";
+		$secondGrade = "Second Quarter";
+	}
+	else {
+		$firstGrade = "Third Quarter";
+		$secondGrade = "Fourth Quarter";
+	}
+
+
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -35,13 +49,13 @@
 	<div class="row">
 	            <div class="col-md-6 m-auto">
 	                <div class="input-group mb-3">
-	                <select name="" id="student_list" class="form-control">
+	                <select name="" id="student_list" class="form-control"
 						<?php foreach($students as $student){?>
 							<option value="<?php echo $student['id']?>"><?php echo $student['first_name']." ".$student['middle_name']." ".$student['last_name']?></option>
 						<?php }?>
 					</select>
 	                    <div class="input-group-append">
-	                        <button type="submit" class="btn btn-outline-primary" onclick="AddGrade()">
+	                        <button type="submit" class="btn btn-outline-primary" onclick="AddGrade()" style="height:80%;">
 	                            <li class="fas fa-plus"></li>
 	                        </button>
 	                    </div>
@@ -55,8 +69,8 @@
             <th>Student Name</th>
             <th>Semester</th>
             <th>School Year</th>
-            <th>First/Third Quarter</th>
-            <th>Second/Fourth Quarter</th>
+            <th><?php echo $firstGrade;?></th>
+            <th><?php echo $secondGrade;?></th>
             <th>Semestral Grade</th>
             <th>Remarks</th>
           </tr>
@@ -102,8 +116,8 @@
     <!-- end add section-->
   </div>
 </div><!-- end .card.border-secondary.mt-3 -->
-<script type="text/javascript">
 
+<script type="text/javascript">
 	function AddGrade() {
 
 		var input = document.getElementById("student_list").value;

@@ -62,7 +62,6 @@
     <!-- end add section-->
   </div>
 </div><!-- end .card.border-secondary.mt-3 -->
-
 <script type="text/javascript">
     function SeeGrade() {
     var syear = document.getElementById("school_year").value;
