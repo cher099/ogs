@@ -3,6 +3,20 @@
 	$section_id = $_SESSION['user']['section'];
 	$teacher_id = $_SESSION['user']['id'];
 
+	$firtsGrade = "";
+	$secondGrade = "";
+
+	$semester = $_GET['semester'];
+	if($semester == "First Semester") {
+		$firstGrade = "First Quarter";
+		$secondGrade = "Second Quarter";
+	}
+	else {
+		$firstGrade = "Third Quarter";
+		$secondGrade = "Fourth Quarter";
+	}
+
+
 	$servername = "localhost";
 	$username = "root";
 	$password = "";
@@ -55,8 +69,8 @@
             <th>Student Name</th>
             <th>Semester</th>
             <th>School Year</th>
-            <th>First/Third Quarter</th>
-            <th>Second/Fourth Quarter</th>
+            <th><?php echo $firstGrade;?></th>
+            <th><?php echo $secondGrade;?></th>
             <th>Semestral Grade</th>
             <th>Remarks</th>
           </tr>

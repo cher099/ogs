@@ -24,7 +24,7 @@
             <td><?php echo $subject['track']; ?></td>
             <td><?php echo $subject['school_year']; ?></td>
             <td>
-              <a class="btn btn-success btn-sm" href="<?php echo url("index.php?p=teachers&a=add-grade&subject_id={$subject['id']}") ?>">Add Grade</a>
+              <a class="btn btn-success btn-sm" href="<?php echo url("index.php?p=teachers&a=add-grade&subject_id={$subject['id']}&semester={$subject['semester']}") ?>">Add Grade</a>
             </td>
           </tr>
           <?php endforeach ?>

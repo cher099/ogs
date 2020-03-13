@@ -138,5 +138,10 @@
 
 	<script>
 		$('#student_list').select2();
+
+		$(document).ready(function () {
+			var mytext = getUrlVars()["semester"];
+			alert(myText);
+		})
 	</script>
 </body>
