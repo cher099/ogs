@@ -11,16 +11,24 @@
     if(isset($_GET['getSchoolYear']) == false){
       $getGrade = $conn->prepare("select grades.*, subjects.name, subjects.track, subjects.school_year, subjects.semester from grades inner join subjects on grades.subject_id=subjects.id where grades.student_id=".$user."");
     } elseif(isset($_GET['getSemester']) && isset($_GET['getSchoolYear'])) {
-      $school_year = $_GET['getSchoolYear'];
-      $semester = strval($_GET['getSemester']);
-      $getGrade = $conn->prepare("select grades.*, subjects.name, subjects.track, subjects.school_year, subjects.semester from grades inner join subjects on grades.subject_id=subjects.id where grades.student_id=".$user." and subjects.semester='Second Semester' and subjects.school_year={$school_year}");
-      echo $school_year . "" . $semester;
+      $school_year = urldecode($_GET['getSchoolYear']);
+      $semester = urldecode($_GET['getSemester']);
+      $getGrade = $conn->prepare("select grades.*, subjects.name, subjects.semester, subjects.track, subjects.school_year from grades inner join subjects on grades.subject_id=subjects.id where grades.student_id=".$user." and subjects.semester='{$semester}' and subjects.school_year='{$school_year}'");
     }
     $getSchoolYear = $conn->prepare("select * from school_year");
     $getGrade->execute();
     $getSchoolYear->execute();
     $studentGrades = $getGrade->fetchAll();
     $fetchSchoolYear = $getSchoolYear->fetchAll();
+    $semester = $_GET['getSemester'];
+    if($semester == "First Semester") {
+      $firstGrade = "First Quarter";
+      $secondGrade = "Second Quarter";
+    }
+    else {
+      $firstGrade = "Third Quarter";
+      $secondGrade = "Fourth Quarter";
+    }
   }catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
   }
@@ -60,8 +68,8 @@
             <th>ID #</th>
             <th>Subject Name</th>
             <th>Semester</th>
-            <th>First Quarter</th>
-            <th>Second Quarter</th>
+            <th><?php echo $firstGrade;?></th>
+            <th><?php echo $secondGrade;?></th>
             <th>Semestral Grade</th>
             <th>Remarks</th>
             <th>Track</th>
@@ -69,19 +77,19 @@
           </tr>
         </thead>
         <tbody>
-          <?php foreach ($studentGrades as $stud): ?>
+          <?php foreach($studentGrades as $stud){?>
             <tr>
-              <td><?php echo $stud['id']; ?></td>
-              <td><?php echo $stud['name']; ?></td>
-              <td><?php echo $stud['semester']; ?></td>
-              <td><?php echo $stud['first_quarter']; ?></td>
-              <td><?php echo $stud['second_quarter']; ?></td>
-              <td><?php echo $stud['semestral_grade']; ?></td>
-              <td><?php echo $stud['remark']; ?></td>
-              <td><?php echo $stud['track']; ?></td>
-              <td><?php echo $stud['school_year']; ?></td>
+              <td><?php echo $stud['id']?></td>
+              <td><?php echo $stud['name']?></td>
+              <td><?php echo $stud['semester']?></td>
+              <td><?php echo $stud['first_quarter']?></td>
+              <td><?php echo $stud['second_quarter']?></td>
+              <td><?php echo $stud['semestral_grade']?></td>
+              <td><?php echo $stud['remark']?></td>
+              <td><?php echo $stud['track']?></td>
+              <td><?php echo $stud['school_year']?></td>
             </tr>
-          <?php endforeach ?>
+          <?php }?>
         </tbody>
       </table>
     </div>
