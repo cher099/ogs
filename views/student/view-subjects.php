@@ -10,25 +10,26 @@
     $user=$_SESSION['user']['id'];
     if(isset($_GET['getSchoolYear']) == false){
       $getGrade = $conn->prepare("select grades.*, subjects.name, subjects.track, subjects.school_year, subjects.semester from grades inner join subjects on grades.subject_id=subjects.id where grades.student_id=".$user."");
+      $firstGrade = "First Quarter";
+      $secondGrade = "Second Quarter";
     } elseif(isset($_GET['getSemester']) && isset($_GET['getSchoolYear'])) {
       $school_year = urldecode($_GET['getSchoolYear']);
       $semester = urldecode($_GET['getSemester']);
       $getGrade = $conn->prepare("select grades.*, subjects.name, subjects.semester, subjects.track, subjects.school_year from grades inner join subjects on grades.subject_id=subjects.id where grades.student_id=".$user." and subjects.semester='{$semester}' and subjects.school_year='{$school_year}'");
+      if($semester == "First Semester") {
+      $firstGrade = "First Quarter";
+      $secondGrade = "Second Quarter";
+      }
+      else {
+        $firstGrade = "Third Quarter";
+        $secondGrade = "Fourth Quarter";
+      }
     }
     $getSchoolYear = $conn->prepare("select * from school_year");
     $getGrade->execute();
     $getSchoolYear->execute();
     $studentGrades = $getGrade->fetchAll();
     $fetchSchoolYear = $getSchoolYear->fetchAll();
-    $semester = $_GET['getSemester'];
-    if($semester == "First Semester") {
-      $firstGrade = "First Quarter";
-      $secondGrade = "Second Quarter";
-    }
-    else {
-      $firstGrade = "Third Quarter";
-      $secondGrade = "Fourth Quarter";
-    }
   }catch(PDOException $e) {
     echo "Connection failed: " . $e->getMessage();
   }
