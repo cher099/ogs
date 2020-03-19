@@ -2,7 +2,7 @@
 
   $servername = "localhost";
   $username = "root";
-  $password = "";
+  $password = "Mk396sfAUzgU";
 
   try {
     $conn = new PDO("mysql:host=$servername;dbname=ogs", $username, $password);
@@ -43,21 +43,27 @@
     <div class="col-md-12 table-responsive">
         <div class="form-group row">
           <div class="col-10" style="float: right; margin-bottom: 5px;">
-            <select class="form-control col-6" placeholder="School Year" id="school_year" style="display: inline-block; width: 49%;">
-              <?php 
-                foreach ($fetchSchoolYear as $school_year){ 
-              ?>
-              <option value="<?php echo $school_year['name']; ?>"><?php echo $school_year['name']; ?></option>
-              <?php } ?>
-            </select>
-            <select class="form-control col-6" placeholder="Semester" id="semester" style="display: inline-block; width: 49%;">
-              <?php 
-                $semesters = ["First Semester", "Second Semester"];
-                foreach ($semesters as $semester){ 
-              ?>
-              <option value="<?php echo $semester; ?>"><?php echo $semester; ?></option>
-              <?php } ?>
-            </select>
+            <div style="display: inline-block; width: 49%;">
+              <label class="lead mt-1 col-4">School Year :</label>
+              <select class="form-control col-8" placeholder="School Year" id="school_year" style="display: inline-block; width: 60%;">
+                <?php 
+                  foreach ($fetchSchoolYear as $school_year){ 
+                ?>
+                <option value="<?php echo $school_year['name']; ?>"><?php echo $school_year['name']; ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <div style="display: inline-block; width: 49%;">
+              <label class="lead mt-1 col-4">Semester :</label>
+              <select class="form-control col-8" placeholder="Semester" id="semester" style="display: inline-block; width: 60%;">
+                <?php 
+                  $semesters = ["First Semester", "Second Semester"];
+                  foreach ($semesters as $semester){ 
+                ?>
+                <option value="<?php echo $semester; ?>"><?php echo $semester; ?></option>
+                <?php } ?>
+              </select>
+            </div>
           </div>
           <div class="col-2" style="float: right; margin: 5px 0; text-align: center;">
             <button class="btn btn-sm btn-primary" type="submit" id="filter-btn" style="width: 100%;">Filter</button>
