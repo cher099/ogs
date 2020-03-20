@@ -105,11 +105,15 @@
 					include 'views/admin/add-student.php';
 					break;
 				case 'add-teacher':
+				
 
 					$sections = DB::select("SELECT * FROM section");
 					$levels = DB::select("SELECT * from levels");
 					include 'views/admin/add-teacher.php';
 					break;
+				case 'edit-grade':
+					include 'views/admin/edit-grade.php';
+				break;
 				case 'add-admin':
 					include 'views/admin/add-admin.php';
 					break;
