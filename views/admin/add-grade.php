@@ -146,7 +146,7 @@
         			  <td style="text-align: center;"><?php echo $stud['second_quarter']?></td>
                 <td style="text-align: center;"><?php echo $stud['semestral_grade']?></td>
         			  <td><?php echo $stud['remark']?></td>
-                <td><a href="index.php?p=principals&a=edit-grade&studentId=<?php echo $stud['student_id'];?>&gradeId=<?php echo $stud['grade_id']?>" class="btn btn-primary">EDIT</a> | <input type="button" class="btn btn-danger" id="deleteGrade" onclick="deleteGrade(<?php echo $stud['grade_id']?>)" value="DELETE"> </td>
+                <td><a href="index.php?p=principals&a=edit-grade&studentId=<?php echo $stud['student_id'];?>&gradeId=<?php echo $stud['grade_id']?>" class="btn btn-success">EDIT</a> | <input type="button" class="btn btn-warning" id="deleteGrade" onclick="deleteGrade(<?php echo $stud['grade_id']?>)" value="DELETE"> </td>
         			</tr>
         		<?php }?>
         	</div>
