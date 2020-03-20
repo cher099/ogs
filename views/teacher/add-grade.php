@@ -19,7 +19,7 @@
 
 	$servername = "localhost";
 	$username = "root";
-	$password = "Mk396sfAUzgU";
+	$password = "";
 
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=ogs", $username, $password);
@@ -147,14 +147,15 @@
 
 				if(first[i].value!= '' && second[i].value != ''){
 						var inp = (parseInt(first[i].value)+parseInt(second[i].value))/2;
+						var finalGrade = Math.round(inp);
 
-						if (inp <75) {
+						if (finalGrade <75) {
 							remarks[i].value = "FAILED";
 						}
 						else{
 							remarks[i].value = "PASSED";
 						}
-						semGrade[i].value = inp;
+						semGrade[i].value = finalGrade;
 				}
 			}
 	}
