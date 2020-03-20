@@ -47,7 +47,7 @@
   <div class="card-body row">
     <div class="col-md-12 table-responsive">
 	<div class="row">
-	            <div class="col-md-6 m-auto">
+	            <div class="col-md-8 m-auto">
 	                <div class="input-group mb-3">
 	                <select name="" id="student_list" class="form-control"
 						<?php foreach($students as $student){?>
