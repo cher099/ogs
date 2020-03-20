@@ -85,9 +85,9 @@
         			  <td><?php echo $stud['first_name'].' '.$stud['middle_name'].' '.$stud['last_name']?></td>
         			  <td><?php echo $stud['semester']?></td>
         			  <td><?php echo $stud['school_year']?></td>
-        			  <td><?php echo $stud['first_quarter']?></td>
-        			  <td><?php echo $stud['second_quarter']?></td>
-        			  <td><?php echo $stud['semestral_grade']?></td>
+        			  <td style="text-align: center;"><?php echo $stud['first_quarter']?></td>
+        			  <td style="text-align: center;"><?php echo $stud['second_quarter']?></td>
+        			  <td style="text-align: center;"><?php echo $stud['semestral_grade']?></td>
         			  <td><?php echo $stud['remark']?></td>
         			</tr>
         		<?php }?>
