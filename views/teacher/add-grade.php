@@ -147,8 +147,8 @@
 
 				if(first[i].value!= '' && second[i].value != ''){
 						var inp = (parseInt(first[i].value)+parseInt(second[i].value))/2;
-						var finalGrade = Math.round(inp);
-
+						var fgrade = Math.round(inp);
+						var finalGrade = fgrade.toFixed(0);
 						if (finalGrade <75) {
 							remarks[i].value = "FAILED";
 						}

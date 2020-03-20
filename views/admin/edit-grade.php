@@ -82,7 +82,8 @@
         var second_quarter = parseInt($('#secondQuarter').val());
         var sum = first_quarter + second_quarter;
         var divide = sum/2;
-        var finalGrade = Math.round(divide);
+        var fgrade = Math.round(divide);
+        var finalGrade = divide.toFixed(0);
         $('#semestralGrade').val(finalGrade);
         if(finalGrade < 75) {
           $('#remarks').val('FAILED')
