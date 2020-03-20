@@ -126,6 +126,7 @@
            <tr>
             <th>ID #</th>
             <th>Student Name</th>
+            <th>Semester</th>
             <th>First Quarter</th>
             <th>Second Quarter</th>
             <th>Semestral Grade</th>
@@ -140,9 +141,10 @@
         			<tr>
         			  <td><?php echo $stud['id_number']?></td>
         			  <td><?php echo $stud['first_name'].' '.$stud['middle_name'].' '.$stud['last_name']?></td>
-        			  <td><?php echo $stud['semester']?></td>
+                <td><?php echo $stud['semester']?></td>
         			  <td><?php echo $stud['first_quarter']?></td>
         			  <td><?php echo $stud['second_quarter']?></td>
+                <td><?php echo $stud['semestral_grade']?></td>
         			  <td><?php echo $stud['remark']?></td>
                 <td><a href="index.php?p=principals&a=edit-grade&studentId=<?php echo $stud['student_id'];?>&gradeId=<?php echo $stud['grade_id']?>">EDIT</a></td>
         			</tr>
