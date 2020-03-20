@@ -10,40 +10,40 @@
 
     $stmt = $conn->prepare("SELECT * from students");
     if(isset($_GET['getTeacherId'])==false){
-		$getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id");
+		$getGrade = $conn->prepare("Select g.*,g.id as grade_id, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id");
     }
     if(isset($_GET['getSubjectId'])) {
     $subjectId = $_GET['getSubjectId'];
-		$getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.subject_id =".$subjectId."");
+		$getGrade = $conn->prepare("Select g.*,g.id as grade_id, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.subject_id =".$subjectId."");
     }
     if(isset($_GET['getTeacherId'])){
       $teacher_id = $_GET['getTeacherId'];
-		$getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.teacher_id = ".$teacher_id."");
+		$getGrade = $conn->prepare("Select g.*,g.id as grade_id, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.teacher_id = ".$teacher_id."");
     }
     if(isset($_GET['getSectionId'])) {
       $section_id = $_GET['getSectionId'];
-		  $getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.section_id = ".$section_id."");
+		  $getGrade = $conn->prepare("Select g.*,g.id as grade_id, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.section_id = ".$section_id."");
     }
     if(isset($_GET['getTeacherId']) && isset($_GET['getSubjectId'])) {
       $teacher_id = $_GET['getTeacherId'];
       $subject_id = $_GET['getSubjectId'];
-		  $getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.teacher_id = ".$teacher_id." and g.subject_id = ".$subject_id."");
+		  $getGrade = $conn->prepare("Select g.*,g.id as grade_id, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.teacher_id = ".$teacher_id." and g.subject_id = ".$subject_id."");
      }
      if(isset($_GET['getTeacherId']) && isset($_GET['getSectionId'])) {
       $teacher_id = $_GET['getTeacherId'];
       $section_id = $_GET['getSectionId'];
-		  $getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.teacher_id = ".$teacher_id." and g.section_id = ".$section_id."");
+		  $getGrade = $conn->prepare("Select g.*,g.id as grade_id, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.teacher_id = ".$teacher_id." and g.section_id = ".$section_id."");
      }
      if(isset($_GET['getSubjectId']) && isset($_GET['getSectionId'])){
       $subject_id = $_GET['getSubjectId'];
       $section_id = $_GET['getSectionId'];
-		  $getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.subject_id = ".$subject_id." and g.section_id = ".$section_id."");
+		  $getGrade = $conn->prepare("Select g.*,g.id as grade_id, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.subject_id = ".$subject_id." and g.section_id = ".$section_id."");
      }
      if(isset($_GET['getSubjectId']) && isset($_GET['getSectionId']) && isset($_GET['getTeacherId'])){
       $subject_id = $_GET['getSubjectId'];
       $section_id = $_GET['getSectionId'];
       $teacher_id = $_GET['getTeacherId'];
-		  $getGrade = $conn->prepare("Select g.*, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.subject_id = ".$subject_id." and g.section_id = ".$section_id." and g.teacher_id=".$teacher_id."");
+		  $getGrade = $conn->prepare("Select g.*,g.id as grade_id, s.*, si.* from grades as g join students s on g.student_id = s.id join subjects as si on g.subject_id = si.id where g.subject_id = ".$subject_id." and g.section_id = ".$section_id." and g.teacher_id=".$teacher_id."");
      }
     $getGradeLevel = $conn->prepare("Select * from levels");
 
@@ -75,8 +75,9 @@
       <div class="col-md-2">
         <select id="subject_id" class="form-control">
           <option value="0"></option>
+        <?php $sub = !empty($_GET['getSubjectId']) ? $_GET['getSubjectId']: '';?>
           <?php foreach ($subjects as $subject): ?>
-             <option value="<?php echo $subject['id']; ?>"><?php echo" {$subject['name']} - {$subject['track']}"; ?></option>
+             <option value="<?php echo $subject['id']; ?>" <?php echo $sub == $subject['id'] ? 'selected' : '';?> ><?php echo" {$subject['name']} - {$subject['track']}"; ?></option>
           <?php endforeach ?>
         </select>
       </div>
@@ -86,8 +87,9 @@
       <div class="col-md-3">
         <select id="teacher_id" class="form-control">
         <option value="0"></option>
+        <?php $teach = !empty($_GET['getTeacherId']) ? $_GET['getTeacherId']: '';?>
           <?php foreach ($teachers as $teacher): ?>
-             <option value="<?php echo $teacher['id']; ?>"><?php echo" {$teacher['last_name']}, {$teacher['first_name']} {$teacher['middle_name']}"; ?></option>
+             <option value="<?php echo $teacher['id']; ?>" <?php echo $teach == $teacher['id'] ? 'selected' : '';?> ><?php echo" {$teacher['last_name']}, {$teacher['first_name']} {$teacher['middle_name']}"; ?></option>
           <?php endforeach ?>
         </select>
       </div>
@@ -97,8 +99,9 @@
       <div class="col-md-2">
         <select id="section_id" class="form-control">
         <option value="0"></option>
+        <?php $sec = !empty($_GET['getSectionId']) ? $_GET['getSectionId']: '';?>
           <?php foreach ($sections as $section): ?>
-             <option value="<?php echo $section['id']; ?>"><?php echo" {$section['name']}"; ?></option>
+             <option value="<?php echo $section['id']; ?>" <?php echo $sec == $section['id'] ? 'selected' : '';?> ><?php echo" {$section['name']}"; ?></option>
           <?php endforeach ?>
         </select>
       </div>
@@ -141,7 +144,7 @@
         			  <td><?php echo $stud['first_quarter']?></td>
         			  <td><?php echo $stud['second_quarter']?></td>
         			  <td><?php echo $stud['remark']?></td>
-                <td><a href="#">EDIT</a> | <a href="#">DELETE</a></td>
+                <td><a href="index.php?p=principals&a=edit-grade&studentId=<?php echo $stud['student_id'];?>&gradeId=<?php echo $stud['grade_id']?>">EDIT</a></td>
         			</tr>
         		<?php }?>
         	</div>
