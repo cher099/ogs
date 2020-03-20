@@ -47,14 +47,14 @@
   <div class="card-body row">
     <div class="col-md-12 table-responsive">
 	<div class="row">
-	            <div class="col-md-8 m-auto">
+	            <div class="col-8 m-auto">
 	                <div class="input-group mb-3">
-	                <select name="" id="student_list" class="form-control"
+	                <select name="" id="student_list" class="form-control col-10"
 						<?php foreach($students as $student){?>
 							<option value="<?php echo $student['id']?>"><?php echo $student['first_name']." ".$student['middle_name']." ".$student['last_name']?></option>
 						<?php }?>
 					</select>
-	                    <div class="input-group-append">
+	                    <div class="input-group-append col-2">
 	                        <button type="submit" class="btn btn-outline-primary" onclick="AddGrade()" style="height:80%;">
 	                            <li class="fas fa-plus"></li>
 	                        </button>
