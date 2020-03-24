@@ -19,7 +19,7 @@
 
 	$servername = "localhost";
 	$username = "root";
-	$password = "";
+	$password = "Mk396sfAUzgU";
 
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=ogs", $username, $password);
@@ -62,7 +62,7 @@
 	                </div>
 	            </div>
 	        </div>
-      <table id="add-grade-table" class="table-bordered table-sm">
+      <table id="add-grade-table" class="table-bordered table-sm" style="width: 100%">
         <thead>
           <tr>
             <th>ID #</th>
@@ -95,7 +95,7 @@
         </tbody>
       </table>
       <button class="btn btn-primary" onClick="generateGrades()">Generate All Grades</button>
-      <button onClick="submitGrades()" class="btn btn-primary btn-warning mt-1">Submit Grades</button>
+      <button onClick="submitGrades()" class="btn btn-primary btn-warning">Submit Grades</button>
       <hr>
      <div class="col-md-12">
      	 <form onSubmit="submitQuery(event)" id="form1">

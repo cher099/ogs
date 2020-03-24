@@ -4,7 +4,7 @@
     //database details
     $dbHost     = 'localhost';
     $dbUsername = 'root';
-    $dbPassword = '';
+    $dbPassword = 'Mk396sfAUzgU';
     $dbName     = 'ogs';
     
     //create connection and select DB

@@ -12,7 +12,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "Mk396sfAUzgU";
 $dbname = "ogs";
 
 // Create connection

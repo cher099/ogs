@@ -35,7 +35,7 @@ function url($uri){
 class DB {
 
 	public static function connect(){
-		$db = new mysqli('localhost', 'root', '', 'ogs');
+		$db = new mysqli('localhost', 'root', 'Mk396sfAUzgU', 'ogs');
 
 		if ($db->connect_error){
 			die("Error : " . $db->connect_error);

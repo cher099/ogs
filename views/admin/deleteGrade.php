@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "Mk396sfAUzgU";
 $dbname = "ogs";
 
 $id = $_POST['id'];

@@ -2,7 +2,7 @@
 
 	$servername = "localhost";
 	$username = "root";
-	$password = "";
+	$password = "Mk396sfAUzgU";
 
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=ogs", $username, $password);
@@ -121,7 +121,7 @@
       </div>
     </div><!-- end of search fields -->
     <div class="col-md-12 table-responsive">
-      <table class="table table-bordered table-sm col-md-12">
+      <table class="table table-bordered table-sm col-md-12" id="table-view-grade">
         <thead>
            <tr>
             <th>ID #</th>
@@ -134,9 +134,7 @@
             <th>Action</th>
           </tr>
         </thead>
-        <tbody id="grade-tbody"></tbody>
         <tbody>
-        	<div>
         		<?php foreach($studentGrades as $stud){?>
         			<tr>
         			  <td><?php echo $stud['id_number']?></td>
@@ -149,7 +147,6 @@
                 <td><a href="index.php?p=principals&a=edit-grade&studentId=<?php echo $stud['student_id'];?>&gradeId=<?php echo $stud['grade_id']?>" class="btn btn-success">EDIT</a> | <input type="button" class="btn btn-warning" id="deleteGrade" onclick="deleteGrade(<?php echo $stud['grade_id']?>)" value="DELETE"> </td>
         			</tr>
         		<?php }?>
-        	</div>
         </tbody>
       </table>
       <div id="submit-panel">
@@ -289,6 +286,9 @@ window.onload = () => {
           grade: []
   };
   window.checkGradesContent();
+  $(document).ready(function(){
+      $('#table-view-grade').DataTable();
+  });
 }
 function checkGradesContent(){
   if (window.__grade_table_storage.grade.length == 0){
