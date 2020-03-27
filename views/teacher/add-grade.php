@@ -49,7 +49,7 @@
 	<div class="row">
 	            <div class="col-md-6 m-auto">
 	                <div class="input-group mb-3">
-	                <select name="" id="student_list" class="form-control"
+	                <select name="" id="student_list" class="form-control">
 						<?php foreach($students as $student){?>
 							<option value="<?php echo $student['id']?>"><?php echo $student['first_name']." ".$student['middle_name']." ".$student['last_name']?></option>
 						<?php }?>
