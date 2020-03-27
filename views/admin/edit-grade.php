@@ -48,20 +48,19 @@
         <input type="text" class="form-control" id="firstQuarter" placeholder="Enter First Quarter" name="firstQuarter" value="<?php echo $grade_row['first_quarter'];?>"></td>
       <td>Second Semester</td>
       <td><input type="text" class="form-control" id="secondQuarter" placeholder="Enter Second Quarter" name="secondQuarter" value="<?php echo $grade_row['second_quarter'];?>"></td>
-    </tr>
-    <tr>
+    
       <td>Semestral Grade</td>
       <td><input type="text" class="form-control" id="semestralGrade" placeholder="" name="semestralGrade" value="<?php echo $grade_row['semestral_grade'];?>" disabled></td>
       <td>Remarks</td>
       <td>
       <input type="text" class="form-control" id="remarks" placeholder="" name="remarks" value="<?php echo $grade_row['remark'];?>" disabled>
       </td>
-    </tr>
-    <tr>
-      <td></td>
-      <td></td>
-      <td> <a href="index.php?p=principals&a=add-grade" class="btn btn-danger">Back</a> | <input type="button" class="btn btn-success" id="btn-update" value="Update Grade"></td>
-      <td> </td>
+   
+      
+
+
+      <td> <a href="index.php?p=principals&a=add-grade" class="btn btn-danger">Back</a>  </td>
+      <td> <input type="button" class="btn btn-success" id="btn-update" value="Update Grade"></td>
     </tr>
   </tbody>
 </table>
