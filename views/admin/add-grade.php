@@ -120,6 +120,13 @@
        <button id="search-btn" class="btn btn-outline-primary ">Search</button>
       </div>
     </div><!-- end of search fields -->
+    <div>
+    <div style="float:right;">
+      
+      <button class="btn btn-danger" id="print-page">PRINT GRADE</button>
+      
+    </div>
+    </div>
     <div class="col-md-12 table-responsive">
       <table class="table table-bordered table-sm col-md-12" id="table-view-grade">
         <thead>
@@ -225,6 +232,40 @@ function deleteGrade(id) {
     });
   }
 
+  document.getElementById('print-page').onclick = (e) => {
+    teacher_id = $('#teacher_id').val();
+    subject_id = $('#subject_id').val();
+    section_id = $('#section_id').val();
+    // level_id = $('#level_id').val();
+    var currentLocation = window.location;
+    if(subject_id != 0 && section_id != 0 && teacher_id != 0) {
+      window.open("printgrade.php?p=principals&a=add-grade&getSubjectId="+subject_id+"&getSectionId="+section_id+"&getTeacherId="+teacher_id, "_blank");
+    } 
+    if(teacher_id != 0 && subject_id != 0) {
+      window.open("printgrade.php?p=principals&a=add-grade&getTeacherId="+teacher_id+"&getSubjectId="+subject_id, "_blank");
+    }
+     if(teacher_id != 0 && section_id != 0) {
+      window.open("printgrade.php?p=principals&a=add-grade&getTeacherId="+teacher_id+"&getSectionId="+section_id, "_blank");
+    }
+     if(subject_id != 0 && section_id != 0) {
+      window.open("printgrade.php?p=principals&a=add-grade&getSubjectId="+subject_id+"&getSectionId="+section_id, "_blank");
+    }
+    
+    if(teacher_id != 0 ) {
+      window.open("printgrade.php?getTeacherId="+teacher_id, "_blank");
+    }
+    if(subject_id != 0) {
+      window.open("printgrade.php?p=principals&a=add-grade&getSubjectId="+subject_id, "_blank");
+
+    }
+    if(section_id != 0) {
+      window.open("printgrade.php?p=principals&a=add-grade&getSectionId="+section_id, "_blank");
+    }
+    
+    window.renderData();
+  }
+
+
   document.getElementById('search-btn').onclick = (e) => {
     teacher_id = $('#teacher_id').val();
     subject_id = $('#subject_id').val();
@@ -282,6 +323,12 @@ function removeStudentGrade(id){
 }
 
 window.onload = () => {
+  if( $('#teacher_id').val() != 0 && $('#subject_id').val() != 0 && $('#section_id').val() != 0) {
+    $('#print-page').show();
+  }
+  else {
+    $('#print-page').hide();
+  }
   window.__grade_table_storage = {
           grade: []
   };
