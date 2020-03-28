@@ -1,7 +1,7 @@
 <?php
     $servername = "localhost";
     $username = "root";
-    $password = "";
+    $password = "Mk396sfAUzgU";
     $dbname = "ogs";
     
     // Create connection
@@ -81,8 +81,10 @@
         var second_quarter = parseInt($('#secondQuarter').val());
         var sum = first_quarter + second_quarter;
         var divide = sum/2;
-        $('#semestralGrade').val(divide);
-        if(divide < 75) {
+        var fgrade = Math.round(divide);
+        var finalGrade = divide.toFixed(0);
+        $('#semestralGrade').val(finalGrade);
+        if(finalGrade < 75) {
           $('#remarks').val('FAILED')
         }
         else {

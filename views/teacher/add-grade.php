@@ -19,7 +19,7 @@
 
 	$servername = "localhost";
 	$username = "root";
-	$password = "";
+	$password = "Mk396sfAUzgU";
 
 	try {
 		$conn = new PDO("mysql:host=$servername;dbname=ogs", $username, $password);
@@ -47,14 +47,14 @@
   <div class="card-body row">
     <div class="col-md-12 table-responsive">
 	<div class="row">
-	            <div class="col-md-6 m-auto">
+	            <div class="col-8 m-auto">
 	                <div class="input-group mb-3">
 	                <select name="" id="student_list" class="form-control">
 						<?php foreach($students as $student){?>
 							<option value="<?php echo $student['id']?>"><?php echo $student['first_name']." ".$student['middle_name']." ".$student['last_name']?></option>
 						<?php }?>
 					</select>
-	                    <div class="input-group-append">
+	                    <div class="input-group-append col-2">
 	                        <button type="submit" class="btn btn-outline-primary" onclick="AddGrade()" style="height:80%;">
 	                            <li class="fas fa-plus"></li>
 	                        </button>
@@ -62,7 +62,7 @@
 	                </div>
 	            </div>
 	        </div>
-      <table id="add-grade-table" class="table-bordered table-sm">
+      <table id="add-grade-table" class="table-bordered table-sm" style="width: 100%">
         <thead>
           <tr>
             <th>ID #</th>
@@ -85,9 +85,9 @@
         			  <td><?php echo $stud['first_name'].' '.$stud['middle_name'].' '.$stud['last_name']?></td>
         			  <td><?php echo $stud['semester']?></td>
         			  <td><?php echo $stud['school_year']?></td>
-        			  <td><?php echo $stud['first_quarter']?></td>
-        			  <td><?php echo $stud['second_quarter']?></td>
-        			  <td><?php echo $stud['semestral_grade']?></td>
+        			  <td style="text-align: center;"><?php echo $stud['first_quarter']?></td>
+        			  <td style="text-align: center;"><?php echo $stud['second_quarter']?></td>
+        			  <td style="text-align: center;"><?php echo $stud['semestral_grade']?></td>
         			  <td><?php echo $stud['remark']?></td>
         			</tr>
         		<?php }?>
@@ -95,7 +95,7 @@
         </tbody>
       </table>
       <button class="btn btn-primary" onClick="generateGrades()">Generate All Grades</button>
-      <button onClick="submitGrades()" class="btn btn-primary btn-warning mt-1">Submit Grades</button>
+      <button onClick="submitGrades()" class="btn btn-primary btn-warning">Submit Grades</button>
       <hr>
      <div class="col-md-12">
      	 <form onSubmit="submitQuery(event)" id="form1">
@@ -147,14 +147,15 @@
 
 				if(first[i].value!= '' && second[i].value != ''){
 						var inp = (parseInt(first[i].value)+parseInt(second[i].value))/2;
-
-						if (inp <75) {
+						var fgrade = Math.round(inp);
+						var finalGrade = fgrade.toFixed(0);
+						if (finalGrade <75) {
 							remarks[i].value = "FAILED";
 						}
 						else{
 							remarks[i].value = "PASSED";
 						}
-						semGrade[i].value = inp;
+						semGrade[i].value = finalGrade;
 				}
 			}
 	}

@@ -1,4 +1,4 @@
-<div class="col-md-6 mr-auto">
+<div class="col-md-6 m-auto">
     <div class="card border-secondary mt-3">
   <div class="card-header">
     <p class="lead m-0">Change Password</p>
