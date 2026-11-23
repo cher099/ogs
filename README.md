@@ -167,6 +167,10 @@ This project is provided as a historical code reference. It is supplied without 
 
 **Project:** Online Grading System (OGS)  
 **Original context:** Gabriel Taborin College of Davao Foundation, Inc.  
-**Repository:** [github.com/cher099/ogs](https://github.com/cher099/ogs)  
 **Original development period:** 2020  
 **Status:** Legacy project
+
+## Contributors
+
+- [ivanray0203](https://github.com/ivanray0203)
+- [cher099](https://github.com/cher099)
