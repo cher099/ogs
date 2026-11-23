@@ -1,0 +1,4 @@
+# Exclude bundled front-end assets and the third-party PDF library
+# from GitHub Linguist language statistics.
+assets/** linguist-vendored
+fpdf182/** linguist-vendored
